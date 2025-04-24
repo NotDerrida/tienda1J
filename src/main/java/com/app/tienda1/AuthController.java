@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestParam;
 //import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import jakarta.servlet.http.HttpSession;
+import java.util.Date;
+
 
 @Controller
 public class AuthController {
@@ -54,6 +56,7 @@ public class AuthController {
             nuevoUsuario.setNombre(nombre);
             nuevoUsuario.setEmail(email);
             nuevoUsuario.setPassword(password);
+            nuevoUsuario.setFechaRegistro(new Date()); 
 
             // Usar el servicio para crear el usuario
             usuarioService.crearUsuario(nuevoUsuario);
