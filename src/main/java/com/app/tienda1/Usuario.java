@@ -16,12 +16,18 @@ public class Usuario {
     private String email;
     private Date fechaRegistro;
 
+    @Column(nullable = false)
+    private String password; // Contraseña hasheada
+
     // Relación con TipoUsuario (JOIN)
     @ManyToOne
     @JoinColumn(name = "tipo_id") // Nombre de la columna en la tabla "usuarios"
     private TipoUsuario tipoUsuario;
 
     // Getters y setters
+    public String getPassword() { return password; }
+    public void setPassword(String password) { this.password = password; }
+
     public Integer getId() { return id; }
     public void setId(Integer id) { this.id = id; }
 

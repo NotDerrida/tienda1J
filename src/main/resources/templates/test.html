@@ -8,14 +8,33 @@
 <body>
     <!-- Incluir el header -->
     <div th:replace="~{header :: header}"></div>
+        <!-- Botón para abrir el modal -->
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Abrir Modal
+        </button>
+    
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Título del Modal</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Contenido del modal.
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-primary">Guardar cambios</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
 
-    <!-- Contenido principal -->
-    <div class="container mt-4">
-        <h1 class="mb-4">Vista Extra</h1>
-        <p>
-            Esta es una vista adicional para probar el sistema de templates.
-        </p>
-    </div>
+    <div th:replace="~{modals :: loginModal}"></div>
+    <div th:replace="~{modals :: registerModal}"></div>
 
     <!-- Incluir el footer -->
     <div th:replace="~{footer :: footer}"></div>

@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <!-- Agregar Bootstrap desde CDN -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
     <!-- Barra de navegación -->
@@ -26,19 +26,29 @@
                 </div>
             </div>
 
-            <!-- Parte derecha: Usuario -->
-            <div class="dropdown">
-                <button class="btn btn-outline-dark dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                    Hola, ¿Quién eres?
-                </button>
-                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                    <li><a class="dropdown-item" href="#">Iniciar sesión</a></li>
-                    <li><a class="dropdown-item" href="#">Registrarse</a></li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="#">Ayuda</a></li>
-                </ul>
-            </div>
+        <!-- Parte derecha: Usuario -->
+        <div class="dropdown">
+            <button class="btn btn-outline-dark dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                <span th:if="${session.usuario != null}" th:text="'Hola, ' + ${session.usuario.nombre}"></span>
+                <span th:unless="${session.usuario != null}">Hola, ¿Quién eres?</span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                <li th:if="${session.usuario == null}">
+                    <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#loginModal">Iniciar sesión</a>
+                </li>
+                <li th:if="${session.usuario == null}">
+                    <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#registerModal">No sé, quiero registrarme</a>
+                </li>
+                <li th:if="${session.usuario != null}">
+                    <a class="dropdown-item" th:href="@{/logout}">Cerrar sesión</a>
+                </li>
+            </ul>
+        </div>
         </div>
     </nav>
 </body>
 </html>
+
+<!-- Bootstrap JS con Popper.js -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
