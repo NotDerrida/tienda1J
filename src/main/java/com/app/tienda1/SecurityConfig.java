@@ -13,20 +13,15 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-            .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/", "/index", "/login", "/register", "/quienesSomos", "/test").permitAll()
-                .anyRequest().authenticated()
-            )
-            .formLogin(form -> form
-                .loginPage("/") // Usa la página principal (modal)
-                .loginProcessingUrl("/login") // Procesa el formulario
-                .defaultSuccessUrl("/") // Redirige después de iniciar sesión
-                .permitAll()
-            )
-            .logout(logout -> logout
-                .logoutSuccessUrl("/") // Redirige después de cerrar sesión
-                .permitAll()
-            );
+                .authorizeHttpRequests(auth -> auth
+                                .requestMatchers("/", "/index", "/login", "/register", "/quienesSomos", "/test").permitAll() // Permite todas estas páginas
+                                .anyRequest().authenticated() // Las demás páginas requieren autenticación
+                )
+                .formLogin(login -> login.disable()) // Deshabilita el manejo de formulario de login de Spring Security
+                .logout(logout -> logout
+                                .logoutSuccessUrl("/") // Redirige después de cerrar sesión
+                                .permitAll()
+                );
 
         return http.build();
     }

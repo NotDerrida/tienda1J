@@ -12,6 +12,10 @@ public class UsuarioService {
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
+    @Autowired
+    private UsuarioRepository usuarioRepository;
+
+
     public String hashPassword(String rawPassword) {
         return passwordEncoder.encode(rawPassword);
     }
@@ -27,6 +31,8 @@ public class UsuarioService {
         // Asignar la fecha de registro
         usuario.setFechaRegistro(new Date());
 
+
+
         // Asignar el tipo de usuario por defecto (id = 3)
         TipoUsuario tipoPorDefecto = tipoUsuarioRepository.findById(3)
                 .orElseThrow(() -> new RuntimeException("No se encontró el tipo de usuario con ID 3"));
@@ -35,6 +41,6 @@ public class UsuarioService {
         // Hashear la contraseña
         usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
 
-        return usuario;
+        return usuarioRepository.save(usuario); 
     }
 }

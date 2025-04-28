@@ -45,6 +45,16 @@
     <div th:replace="~{modals :: loginModal}"></div>
     <div th:replace="~{modals :: registerModal}"></div>
 
+    <div th:if="${session.usuario != null}">
+        <p>Hola, <span th:text="${session.usuario.nombre}">Usuario</span> 👋</p>
+        <a href="/logout" class="btn btn-danger">Cerrar sesión</a>
+    </div>
+    
+    <div th:unless="${session.usuario != null}">
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#loginModal">Iniciar sesión</button>
+    </div>
+    
+
     <!-- Incluir el footer -->
     <div th:replace="~{footer :: footer}"></div>
 

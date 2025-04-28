@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestParam;
 //import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import jakarta.servlet.http.HttpSession;
+import java.util.Date;
+
 
 @Controller
 public class AuthController {
@@ -37,6 +39,12 @@ public class AuthController {
         session.setAttribute("usuario", usuario);
         return "redirect:/";
     }
+    
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate(); // Esto borra todo de la sesión
+        return "redirect:/";
+    }
 
     @GetMapping("/register")
     public String register() {
@@ -54,6 +62,7 @@ public class AuthController {
             nuevoUsuario.setNombre(nombre);
             nuevoUsuario.setEmail(email);
             nuevoUsuario.setPassword(password);
+            nuevoUsuario.setFechaRegistro(new Date()); 
 
             // Usar el servicio para crear el usuario
             usuarioService.crearUsuario(nuevoUsuario);
@@ -62,7 +71,7 @@ public class AuthController {
             return "redirect:/";
         } catch (Exception e) {
             session.setAttribute("error", "Error al registrar el usuario: " + e.getMessage());
-            return "redirect:/";
+            return "redirect:/index";
         }
-}
+    }
 }
