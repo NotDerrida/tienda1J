@@ -10,27 +10,25 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfig {
 
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-                .authorizeHttpRequests(auth -> auth
-                        // Permitir acceso a estas rutas sin autenticación
-                        .requestMatchers(
-                                "/",
-                                "/index",
-                                "/login",
-                                "/logout",
-                                "/register",
-                                "/quienesSomos",
-                                "/test",
-                                "/css/**",
-                                "/js/**")
-                        .permitAll()
-                        // Todas las demás rutas requieren autenticación
-                        .anyRequest().authenticated())
-                .formLogin(login -> login.disable()) // Deshabilitamos autenticación automática
-                .logout(logout -> logout
-                        .logoutSuccessUrl("/"));
-        return http.build();
-    }
+        @Bean
+        public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+                http
+                                .authorizeHttpRequests(auth -> auth
+                                                .requestMatchers(
+                                                                "/", "/index", "/login", "/logout", "/register",
+                                                                "/quienesSomos", "/test", "/css/**", "/js/**",
+                                                                "/images/**")
+                                                .permitAll()
+                                                .requestMatchers("/carrito/**").authenticated()
+                                                .anyRequest().authenticated())
+                                .formLogin(login -> login
+                                                .loginPage("/login")
+                                                .defaultSuccessUrl("/")
+                                                .permitAll())
+                                .logout(logout -> logout
+                                                .logoutUrl("/logout")
+                                                .logoutSuccessUrl("/")
+                                                .permitAll());
+                return http.build();
+        }
 }

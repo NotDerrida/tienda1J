@@ -3,8 +3,6 @@ package com.app.tienda1;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -19,7 +17,7 @@ public class UsuarioController {
     private UsuarioService usuarioService;
 
     @Autowired
-    private ProductoService productoService;
+    private ProductoService productoService; // Inyectamos el servicio de productos
 
     @GetMapping("/")
     public String index(Model model) {
@@ -31,25 +29,16 @@ public class UsuarioController {
         List<Producto> productos = productoService.obtenerProductosActivos();
         model.addAttribute("productos", productos);
 
-        return "index.html";
+        return "index.html"; // Vista principal
     }
 
     @GetMapping("/quienesSomos")
     public String quienesSomos() {
-        return "quienesSomos";
+        return "quienesSomos"; // Vista de "Quiénes Somos"
     }
 
     @GetMapping("/test")
     public String test() {
-        return "test";
+        return "test"; // Vista de prueba
     }
-
-    /*
-     * @PostMapping("/register")
-     * public String registrarUsuario(@ModelAttribute Usuario usuario) {
-     * usuarioService.crearUsuario(usuario);
-     * return "redirect:/"; // O a donde quieras redirigir después del registro
-     * }
-     */
-
 }
