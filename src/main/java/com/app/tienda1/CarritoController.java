@@ -19,10 +19,10 @@ public class CarritoController {
         Usuario cliente = (Usuario) session.getAttribute("usuario");
         if (cliente == null) {
             redirectAttributes.addFlashAttribute("error", "Debes iniciar sesión para agregar productos al carrito.");
-            return "redirect:/login";
+            return "redirect:/";
         }
 
-        carritoService.agregarProductoAlCarrito(cliente, productoId, cantidad);
+        carritoService.agregarProductoAlCarrito(cliente.getId(), productoId.intValue(), cantidad.intValue());
         redirectAttributes.addFlashAttribute("success", "Producto agregado al carrito.");
         return "redirect:/";
     }

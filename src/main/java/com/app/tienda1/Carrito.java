@@ -13,38 +13,24 @@ public class Carrito {
     private Integer idCarrito;
 
     @ManyToOne
-    @JoinColumn(name = "id_cliente", nullable = false)
+    @JoinColumn(name = "id_cliente", nullable = false) // Relación con la entidad Usuario
     private Usuario cliente;
 
+    @Column(nullable = false)
     private Boolean activo;
 
     @OneToMany(mappedBy = "carrito", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ContenidoCarrito> contenido;
 
     // Getters y setters
-    public Integer getIdCarrito() {
-        return idCarrito;
-    }
+    public Integer getIdCarrito() { return idCarrito; }
+    public void setIdCarrito(Integer idCarrito) { this.idCarrito = idCarrito; }
 
-    public void setIdCarrito(Integer idCarrito) {
-        this.idCarrito = idCarrito;
-    }
+    public Boolean getActivo() { return activo; }
+    public void setActivo(Boolean activo) { this.activo = activo; }
 
-    public Usuario getCliente() {
-        return cliente;
-    }
-
-    public void setCliente(Usuario cliente) {
-        this.cliente = cliente;
-    }
-
-    public Boolean getActivo() {
-        return activo;
-    }
-
-    public void setActivo(Boolean activo) {
-        this.activo = activo;
-    }
+    public Usuario getCliente() { return cliente; }
+    public void setCliente(Usuario cliente) { this.cliente = cliente; }
 
     public List<ContenidoCarrito> getContenido() {
         return contenido;
@@ -52,5 +38,10 @@ public class Carrito {
 
     public void setContenido(List<ContenidoCarrito> contenido) {
         this.contenido = contenido;
+    }
+
+    // Método auxiliar para obtener el ID del cliente sin duplicar campos
+    public Integer getIdCliente() {
+        return cliente != null ? cliente.getId() : null;
     }
 }
