@@ -32,3 +32,4 @@ build/
 ### VS Code ###
 .vscode/
 localhost.sql
+src/main/resources/application.properties
