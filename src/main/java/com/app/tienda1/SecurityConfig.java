@@ -14,15 +14,23 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
-                                .requestMatchers("/", "/index", "/login", "/register", "/quienesSomos", "/test").permitAll() // Permite todas estas páginas
-                                .anyRequest().authenticated() // Las demás páginas requieren autenticación
-                )
-                .formLogin(login -> login.disable()) // Deshabilita el manejo de formulario de login de Spring Security
+                        // Permitir acceso a estas rutas sin autenticación
+                        .requestMatchers(
+                                "/",
+                                "/index",
+                                "/login",
+                                "/logout",
+                                "/register",
+                                "/quienesSomos",
+                                "/test",
+                                "/css/**",
+                                "/js/**")
+                        .permitAll()
+                        // Todas las demás rutas requieren autenticación
+                        .anyRequest().authenticated())
+                .formLogin(login -> login.disable()) // Deshabilitamos autenticación automática
                 .logout(logout -> logout
-                                .logoutSuccessUrl("/") // Redirige después de cerrar sesión
-                                .permitAll()
-                );
-
+                        .logoutSuccessUrl("/"));
         return http.build();
     }
 }

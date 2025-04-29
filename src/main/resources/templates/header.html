@@ -1,54 +1,77 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
+  <head>
     <!-- Bootstrap CSS -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
     <!-- Barra de navegación -->
-    <nav th:fragment="header" class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
-            <!-- Nombre de la tienda (izquierda) -->
-            <a class="navbar-brand fs-4 fw-bold text-primary" th:href="@{/}">InnovaDistribuidos</a>
+    <nav
+      th:fragment="header"
+      class="navbar navbar-expand-lg navbar-light bg-light"
+    >
+      <div class="container-fluid">
+        <!-- Nombre de la tienda (izquierda) -->
+        <a class="navbar-brand fs-4 fw-bold text-primary" th:href="@{/}"
+          >InnovaDistribuidos</a
+        >
 
-            <!-- Parte central: Barra de búsqueda y botones -->
-            <div class="d-flex flex-column align-items-center w-100 mx-auto">
-                <!-- Barra de búsqueda -->
-                <form class="d-flex w-75 mb-2">
-                    <input class="form-control me-2" type="search" placeholder="Buscar productos..." aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Buscar</button>
-                </form>
-
-                <div class="d-flex gap-2">
-                    <a class="btn btn-secondary" th:href="@{/}">Marketplace</a>
-                    <a class="btn btn-warning" th:href="@{/test}">Promoción</a>
-                    <a class="btn btn-info" th:href="@{/quienesSomos}">Quiénes somos</a>
-                </div>
-            </div>
+        <!-- Botones centrales -->
+        <div class="d-flex gap-3 ms-auto me-auto">
+          <a class="btn btn-secondary" th:href="@{/}">Marketplace</a>
+          <a class="btn btn-warning" th:href="@{/test}">Promoción</a>
+          <a class="btn btn-info" th:href="@{/quienesSomos}">Quiénes somos</a>
+        </div>
 
         <!-- Parte derecha: Usuario -->
         <div class="dropdown">
-            <button class="btn btn-outline-dark dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                <span th:if="${session.usuario != null}" th:text="'Hola, ' + ${session.usuario.nombre}"></span>
-                <span th:unless="${session.usuario != null}">Hola, ¿Quién eres?</span>
-            </button>
-            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                <li th:if="${session.usuario == null}">
-                    <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#loginModal">Iniciar sesión</a>
-                </li>
-                <li th:if="${session.usuario == null}">
-                    <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#registerModal">No sé, quiero registrarme</a>
-                </li>
-                <li th:if="${session.usuario != null}">
-                    <a class="dropdown-item" th:href="@{/logout}">Cerrar sesión</a>
-                </li>
-            </ul>
+          <button
+            class="btn btn-outline-dark dropdown-toggle"
+            type="button"
+            id="userDropdown"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            <span
+              th:if="${session.usuario != null}"
+              th:text="'Hola, ' + ${session.usuario.nombre}"
+            ></span>
+            <span th:unless="${session.usuario != null}"
+              >Hola, ¿Quién eres?</span
+            >
+          </button>
+          <ul
+            class="dropdown-menu dropdown-menu-end"
+            aria-labelledby="userDropdown"
+          >
+            <li th:if="${session.usuario == null}">
+              <a
+                class="dropdown-item"
+                data-bs-toggle="modal"
+                data-bs-target="#loginModal"
+                >Iniciar sesión</a
+              >
+            </li>
+            <li th:if="${session.usuario == null}">
+              <a
+                class="dropdown-item"
+                data-bs-toggle="modal"
+                data-bs-target="#registerModal"
+                >Quiero registrarme</a
+              >
+            </li>
+            <li th:if="${session.usuario != null}">
+              <a class="dropdown-item" th:href="@{/logout}">Cerrar sesión</a>
+            </li>
+          </ul>
         </div>
-        </div>
+      </div>
     </nav>
-</body>
+
+    <!-- Bootstrap JS con Popper.js -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
 </html>
-
-<!-- Bootstrap JS con Popper.js -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-
