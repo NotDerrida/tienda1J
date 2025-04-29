@@ -18,11 +18,19 @@ public class UsuarioController {
     @Autowired
     private UsuarioService usuarioService;
 
+    @Autowired
+    private ProductoService productoService;
 
     @GetMapping("/")
     public String index(Model model) {
+        // Obtener la lista de usuarios
         List<Usuario> usuarios = usuarioRepository.findAll();
         model.addAttribute("usuarios", usuarios);
+
+        // Obtener la lista de productos activos
+        List<Producto> productos = productoService.obtenerProductosActivos();
+        model.addAttribute("productos", productos);
+
         return "index.html";
     }
 
@@ -36,10 +44,12 @@ public class UsuarioController {
         return "test";
     }
 
-    /*@PostMapping("/register")
-    public String registrarUsuario(@ModelAttribute Usuario usuario) {
-    usuarioService.crearUsuario(usuario);
-    return "redirect:/"; // O a donde quieras redirigir después del registro
-}*/
+    /*
+     * @PostMapping("/register")
+     * public String registrarUsuario(@ModelAttribute Usuario usuario) {
+     * usuarioService.crearUsuario(usuario);
+     * return "redirect:/"; // O a donde quieras redirigir después del registro
+     * }
+     */
 
 }

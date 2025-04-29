@@ -1,17 +1,19 @@
 package com.app.tienda1;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service
 public class ProductoService {
 
-    @Autowired
-    private ProductoRepository productoRepository;
+    private final ProductoRepository productoRepository;
+
+    public ProductoService(ProductoRepository productoRepository) {
+        this.productoRepository = productoRepository;
+    }
 
     public List<Producto> obtenerProductosActivos() {
+        // Suponiendo que tienes un campo "activo" en la entidad Producto
         return productoRepository.findByActivoTrue();
     }
 }

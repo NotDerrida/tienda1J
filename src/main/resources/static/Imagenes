@@ -1,1 +1,0 @@
-<img th:src="@{https://via.placeholder.com/300x200?text=Producto}" />
