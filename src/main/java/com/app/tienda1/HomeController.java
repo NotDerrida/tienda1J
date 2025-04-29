@@ -1,4 +1,4 @@
-package com.app.tienda1;
+/*package com.app.tienda1;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,4 +16,4 @@ public class HomeController {
         model.addAttribute("productos", productoService.obtenerProductosActivos());
         return "index"; // Usa tu plantilla index.html
     }
-}
+}*/
