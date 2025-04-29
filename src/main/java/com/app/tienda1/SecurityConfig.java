@@ -13,22 +13,24 @@ public class SecurityConfig {
         @Bean
         public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
                 http
-                                .authorizeHttpRequests(auth -> auth
-                                                .requestMatchers(
-                                                                "/", "/index", "/login", "/logout", "/register",
-                                                                "/quienesSomos", "/test", "/css/**", "/js/**",
-                                                                "/images/**")
-                                                .permitAll()
-                                                .requestMatchers("/carrito/**").authenticated()
-                                                .anyRequest().authenticated())
-                                .formLogin(login -> login
-                                                .loginPage("/login")
-                                                .defaultSuccessUrl("/")
-                                                .permitAll())
-                                .logout(logout -> logout
-                                                .logoutUrl("/logout")
-                                                .logoutSuccessUrl("/")
-                                                .permitAll());
+                        .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(
+                                "/",
+                                "/index",
+                                "/login",
+                                "/logout",
+                                "/register",
+                                "/quienesSomos",
+                                "/test",
+                                "/css/**",
+                                "/js/**")
+                        .permitAll()
+                                .requestMatchers("/carrito/**").authenticated()
+                                .anyRequest().authenticated())
+
+                        .formLogin(login -> login.disable()) 
+                        .logout(logout -> logout
+                        .logoutSuccessUrl("/"));
                 return http.build();
         }
 }
