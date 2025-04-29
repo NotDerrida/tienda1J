@@ -41,7 +41,7 @@
                   class="card-text text-primary fs-5"
                   th:text="'$' + ${producto.precio}"
                 ></p>
-                <form action="" method="post">
+                <form th:action="@{/carrito/agregar}" method="post">
                   <input
                     type="hidden"
                     name="productoId"

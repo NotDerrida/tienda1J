@@ -23,7 +23,8 @@ public class SecurityConfig {
                                 "/quienesSomos",
                                 "/users",
                                 "/css/**",
-                                "/js/**")
+                                "/js/**",
+                                "/carrito/**")
                         .permitAll()
                                 /*.requestMatchers("/carrito/**").authenticated()*/
                                 .anyRequest().authenticated())
