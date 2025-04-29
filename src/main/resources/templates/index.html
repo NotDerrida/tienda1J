@@ -41,17 +41,18 @@
                   class="card-text text-primary fs-5"
                   th:text="'$' + ${producto.precio}"
                 ></p>
+
+              <!-- Formulario condicional -->
+              <div th:if="${session.usuario != null}">
                 <form th:action="@{/carrito/agregar}" method="post">
-                  <input
-                    type="hidden"
-                    name="productoId"
-                    th:value="${producto.id}"
-                  />
-                  <input type="hidden" name="cantidad" value="1" />
-                  <button type="submit" class="btn btn-success">
-                    Agregar al Carrito
-                  </button>
+                    <input type="hidden" name="productoId" th:value="${producto.id}" />
+                    <input type="hidden" name="cantidad" value="1" />
+                    <button type="submit" class="btn btn-success">
+                        Agregar al Carrito
+                    </button>
                 </form>
+              </div>
+
               </div>
             </div>
           </div>

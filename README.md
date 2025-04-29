@@ -13,3 +13,22 @@ Proyecto de e-commerce desarrollado con Spring Boot y Thymeleaf.
 3. Ejecuta el proyecto con:
    mvn spring-boot:run
    Spring Boot Dashboard
+
+-------------------------------------------
+
+src/
+├── main/
+│   ├── java/
+│   │   ├── com.app.tienda1/
+│   │   │   ├── 
+│   │   │   ├──
+│   │   │   ├── 
+│   │   │   ├──
+│   │   │   ├── 
+│   │   │   ├── 
+│   │   │   └── TiendaApplication.java
+│   ├── resources/
+│   │   ├── templates/
+│   │   │   └── index.html
+│   │   ├── application.properties
+└── test/
