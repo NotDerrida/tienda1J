@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>VistaXtra</title>
+    <!-- Agregar Bootstrap desde CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Incluir el header -->
+    <div th:replace="~{header :: header}"></div>
+
+      <div class="container">
+        <!-- Lista de Usuarios -->
+        <h1 class="mb-4">Lista de Usuarios</h1>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Email</th>
+                <th>Fecha de Registro</th>
+                <th>Tipo de Usuario</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="usuario : ${usuarios}">
+                <td th:text="${usuario.id}"></td>
+                <td th:text="${usuario.nombre}"></td>
+                <td th:text="${usuario.email}"></td>
+                <td
+                th:text="${#dates.format(usuario.fechaRegistro, 'yyyy-MM-dd HH:mm')}"
+                ></td>
+                <td th:text="${usuario.tipoUsuario.tipo}"></td>
+            </tr>
+            </tbody>
+        </table>
+            
+      </div>
+
+    <div th:replace="~{modals :: loginModal}"></div>
+    <div th:replace="~{modals :: registerModal}"></div>
+
+    <!-- Incluir el footer -->
+    <div th:replace="~{footer :: footer}"></div>
+
+    <!-- Agregar el script de Bootstrap desde CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

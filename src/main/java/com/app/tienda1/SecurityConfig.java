@@ -21,11 +21,11 @@ public class SecurityConfig {
                                 "/logout",
                                 "/register",
                                 "/quienesSomos",
-                                "/test",
+                                "/users",
                                 "/css/**",
                                 "/js/**")
                         .permitAll()
-                                .requestMatchers("/carrito/**").authenticated()
+                                /*.requestMatchers("/carrito/**").authenticated()*/
                                 .anyRequest().authenticated())
 
                         .formLogin(login -> login.disable()) 

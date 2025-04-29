@@ -21,10 +21,6 @@ public class UsuarioController {
 
     @GetMapping("/")
     public String index(Model model) {
-        // Obtener la lista de usuarios
-        List<Usuario> usuarios = usuarioRepository.findAll();
-        model.addAttribute("usuarios", usuarios);
-
         // Obtener la lista de productos activos
         List<Producto> productos = productoService.obtenerProductosActivos();
         model.addAttribute("productos", productos);
@@ -37,8 +33,11 @@ public class UsuarioController {
         return "quienesSomos"; // Vista de "Quiénes Somos"
     }
 
-    @GetMapping("/test")
-    public String test() {
-        return "test"; // Vista de prueba
+    @GetMapping("/users")
+    public String users(Model model) {
+        // Obtener la lista de usuarios
+            List<Usuario> usuarios = usuarioRepository.findAll();
+            model.addAttribute("usuarios", usuarios);
+        return "users"; // Vista de prueba
     }
 }

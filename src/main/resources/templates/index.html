@@ -22,30 +22,6 @@
 
     <!-- Contenido principal -->
     <div class="container mt-4">
-      <!-- Lista de Usuarios -->
-      <h1 class="mb-4">Lista de Usuarios</h1>
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Nombre</th>
-            <th>Email</th>
-            <th>Fecha de Registro</th>
-            <th>Tipo de Usuario</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr th:each="usuario : ${usuarios}">
-            <td th:text="${usuario.id}"></td>
-            <td th:text="${usuario.nombre}"></td>
-            <td th:text="${usuario.email}"></td>
-            <td
-              th:text="${#dates.format(usuario.fechaRegistro, 'yyyy-MM-dd HH:mm')}"
-            ></td>
-            <td th:text="${usuario.tipoUsuario.tipo}"></td>
-          </tr>
-        </tbody>
-      </table>
 
       <!-- Catálogo de Productos -->
       <div class="row mt-4">
@@ -65,7 +41,7 @@
                   class="card-text text-primary fs-5"
                   th:text="'$' + ${producto.precio}"
                 ></p>
-                <form action="/carrito/agregar" method="post">
+                <form action="" method="post">
                   <input
                     type="hidden"
                     name="productoId"
@@ -86,22 +62,6 @@
     <!-- Modales de inicio de sesión y registro -->
     <div th:replace="~{modals :: loginModal}"></div>
     <div th:replace="~{modals :: registerModal}"></div>
-
-    <!-- Mostrar información del usuario o botón de inicio de sesión -->
-    <div th:if="${session.usuario != null}">
-      <p>Hola, <span th:text="${session.usuario.nombre}">Usuario</span> 👋</p>
-      <a href="/logout" class="btn btn-danger">Cerrar sesión</a>
-    </div>
-    <div th:unless="${session.usuario != null}">
-      <button
-        class="btn btn-primary"
-        data-bs-toggle="modal"
-        data-bs-target="#loginModal"
-      >
-        Iniciar sesión
-      </button>
-    </div>
-
     <!-- Incluir el footer -->
     <div th:replace="~{footer :: footer}"></div>
 
