@@ -13,7 +13,7 @@ public class ProductoService {
     }
 
     public List<Producto> obtenerProductosActivos() {
-        // Suponiendo que tienes un campo "activo" en la entidad Producto
+        // Suponiendo que tienes un campo "activo" en la entidad Producto PRUEBA PRUEBA
         return productoRepository.findByActivoTrue();
     }
 }
