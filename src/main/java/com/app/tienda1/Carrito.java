@@ -10,7 +10,7 @@ public class Carrito {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_carrito")
-    private Integer idCarrito;
+    private Integer id;
 
     @ManyToOne
     @JoinColumn(name = "id_cliente", nullable = false) // Relación con la entidad Usuario
@@ -23,14 +23,29 @@ public class Carrito {
     private List<ContenidoCarrito> contenido;
 
     // Getters y setters
-    public Integer getIdCarrito() { return idCarrito; }
-    public void setIdCarrito(Integer idCarrito) { this.idCarrito = idCarrito; }
+    public Integer getIdCarrito() {
+        return id;
+    }
 
-    public Boolean getActivo() { return activo; }
-    public void setActivo(Boolean activo) { this.activo = activo; }
+    public void setIdCarrito(Integer idCarrito) {
+        this.id = idCarrito;
+    }
 
-    public Usuario getCliente() { return cliente; }
-    public void setCliente(Usuario cliente) { this.cliente = cliente; }
+    public Boolean getActivo() {
+        return activo;
+    }
+
+    public void setActivo(Boolean activo) {
+        this.activo = activo;
+    }
+
+    public Usuario getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Usuario cliente) {
+        this.cliente = cliente;
+    }
 
     public List<ContenidoCarrito> getContenido() {
         return contenido;

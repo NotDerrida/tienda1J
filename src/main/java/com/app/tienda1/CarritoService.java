@@ -38,23 +38,26 @@ public class CarritoService {
     /**
      * Agrega un producto al carrito del usuario.
      *
-     * @param clienteId ID del cliente
+     * @param clienteId  ID del cliente
      * @param productoId ID del producto
-     * @param cantidad Cantidad a agregar
+     * @param cantidad   Cantidad a agregar
      */
     public void agregarProductoAlCarrito(int clienteId, int productoId, int cantidad) {
         // Obtener o crear el carrito activo del usuario
         Carrito carrito = obtenerCarritoActivo(clienteId);
-    
+
         // Buscar el producto en la base de datos
         Producto producto = productoRepository.findById(productoId)
                 .orElse(null); // Retorna null si el producto no existe
-    
-        if (producto == null) { return; } // Manejar el caso donde el producto no existe
-    
+
+        if (producto == null) {
+            return;
+        } // Manejar el caso donde el producto no existe
+
         // Verificar si el producto ya está en el carrito
-        Optional<ContenidoCarrito> contenidoExistente = contenidoCarritoRepository.findByCarritoIdAndProductoId(carrito.getIdCarrito(), productoId);
-    
+        Optional<ContenidoCarrito> contenidoExistente = contenidoCarritoRepository
+                .findByCarritoIdAndProductoId(carrito.getIdCarrito(), productoId);
+
         if (contenidoExistente.isPresent()) {
             // Actualizar la cantidad si el producto ya está en el carrito
             ContenidoCarrito contenido = contenidoExistente.get();
