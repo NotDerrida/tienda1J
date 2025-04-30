@@ -36,6 +36,16 @@ public class CarritoController {
         }
 
         Carrito carrito = carritoService.obtenerCarritoActivo(cliente.getId());
+
+        // Imprimir el carrito en la consola para verificar su contenido
+        System.out.println("Carrito cargado: " + carrito);
+
+        // Forzar la carga de los productos del carrito
+        if (carrito != null && carrito.getContenido() != null) {
+            carrito.getContenido().size(); // Esto asegura que los productos se carguen
+            System.out.println("Contenido del carrito: " + carrito.getContenido());
+        }
+
         model.addAttribute("carrito", carrito);
         return "index"; // O la vista donde se muestra el carrito
     }

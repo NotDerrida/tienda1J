@@ -19,7 +19,7 @@ public class Carrito {
     @Column(nullable = false)
     private Boolean activo;
 
-    @OneToMany(mappedBy = "carrito", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "carrito", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<ContenidoCarrito> contenido;
 
     // Getters y setters
