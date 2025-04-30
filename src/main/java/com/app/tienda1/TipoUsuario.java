@@ -13,7 +13,7 @@ public class TipoUsuario {
 
     private String tipo;
 
-    // Relación inversa (opcional, pero útil para consultas)
+    // Relación inversa (opcional, pero útil para consultas) OTRA PRUEBITA LOL
     @OneToMany(mappedBy = "tipoUsuario")
     private List<Usuario> usuarios;
 
