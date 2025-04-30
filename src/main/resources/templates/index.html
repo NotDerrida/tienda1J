@@ -22,7 +22,6 @@
 
     <!-- Contenido principal -->
     <div class="container mt-4">
-
       <!-- Catálogo de Productos -->
       <div class="row mt-4">
         <h2>Catálogo de Productos</h2>
@@ -42,20 +41,68 @@
                   th:text="'$' + ${producto.precio}"
                 ></p>
 
-              <!-- Formulario condicional -->
-              <div th:if="${session.usuario != null}">
-                <form th:action="@{/carrito/agregar}" method="post">
-                    <input type="hidden" name="productoId" th:value="${producto.id}" />
+                <!-- Formulario condicional -->
+                <div th:if="${session.usuario != null}">
+                  <form th:action="@{/carrito/agregar}" method="post">
+                    <input
+                      type="hidden"
+                      name="productoId"
+                      th:value="${producto.id}"
+                    />
                     <input type="hidden" name="cantidad" value="1" />
                     <button type="submit" class="btn btn-success">
-                        Agregar al Carrito
+                      Agregar al Carrito
                     </button>
-                </form>
-              </div>
-
+                  </form>
+                </div>
               </div>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="offcanvas offcanvas-end"
+      tabindex="-1"
+      id="offcanvasCarrito"
+      aria-labelledby="offcanvasCarritoLabel"
+    >
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasCarritoLabel">
+          Carrito de Compras
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="offcanvas"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="offcanvas-body">
+        <div th:if="${carrito != null}">
+          <ul class="list-group">
+            <li
+              class="list-group-item d-flex justify-content-between align-items-center"
+              th:each="contenido : ${carrito.contenido}"
+            >
+              <span th:text="${contenido.producto.nombre}"></span>
+              <span th:text="'Cantidad: ' + ${contenido.cantidad}"></span>
+              <span
+                th:text="'$' + ${contenido.producto.precio * contenido.cantidad}"
+              ></span>
+            </li>
+          </ul>
+          <div class="mt-3">
+            <form th:action="@{/carrito/pagar}" method="post">
+              <button type="submit" class="btn btn-success w-100">
+                Realizar Pago
+              </button>
+            </form>
+          </div>
+        </div>
+        <div th:if="${carrito == null}">
+          <p>Tu carrito está vacío.</p>
         </div>
       </div>
     </div>

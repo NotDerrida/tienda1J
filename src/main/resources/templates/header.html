@@ -23,7 +23,9 @@
         <div class="d-flex gap-3 ms-auto me-auto">
           <a class="btn btn-secondary" th:href="@{/}">Marketplace</a>
           <a class="btn btn-info" th:href="@{/users}">Usuarios</a>
-          <a class="btn btn-warning" th:href="@{/quienesSomos}">Quiénes somos</a>
+          <a class="btn btn-warning" th:href="@{/quienesSomos}"
+            >Quiénes somos</a
+          >
         </div>
 
         <!-- Parte derecha: Usuario -->
@@ -43,6 +45,17 @@
               >Hola, ¿Quién eres?</span
             >
           </button>
+          <div th:if="${session.usuario != null}">
+            <button
+              class="btn btn-primary"
+              type="button"
+              data-bs-toggle="offcanvas"
+              data-bs-target="#offcanvasCarrito"
+              aria-controls="offcanvasCarrito"
+            >
+              Ver Carrito
+            </button>
+          </div>
           <ul
             class="dropdown-menu dropdown-menu-end"
             aria-labelledby="userDropdown"

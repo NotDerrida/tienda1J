@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.ui.Model;
 
 @Controller
 @RequestMapping("/carrito")
@@ -25,5 +26,17 @@ public class CarritoController {
         carritoService.agregarProductoAlCarrito(cliente.getId(), productoId.intValue(), cantidad.intValue());
         redirectAttributes.addFlashAttribute("success", "Producto agregado al carrito.");
         return "redirect:/";
+    }
+
+    @GetMapping("/carrito/ver")
+    public String verCarrito(HttpSession session, Model model) {
+        Usuario cliente = (Usuario) session.getAttribute("usuario");
+        if (cliente == null) {
+            return "redirect:/login";
+        }
+
+        Carrito carrito = carritoService.obtenerCarritoActivo(cliente.getId());
+        model.addAttribute("carrito", carrito);
+        return "index"; // O la vista donde se muestra el carrito
     }
 }
