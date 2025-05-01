@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.ui.Model;
+import java.util.List;
 
 @Controller
 @RequestMapping("/carrito")
@@ -13,6 +14,12 @@ public class CarritoController {
 
     @Autowired
     private CarritoService carritoService;
+
+    @Autowired
+    private PagoRepository pagoRepository; // Inyección de PagoRepository
+
+    @Autowired
+    private PedidoRepository pedidoRepository;
 
     @PostMapping("/agregar")
     public String agregarProducto(@RequestParam Integer productoId, @RequestParam Integer cantidad, HttpSession session,
@@ -51,15 +58,63 @@ public class CarritoController {
     }
 
     @PostMapping("/eliminar")
-    public String eliminarProducto(@RequestParam Integer productoId, HttpSession session, RedirectAttributes redirectAttributes) {
-    Usuario cliente = (Usuario) session.getAttribute("usuario");
-    if (cliente == null) {
-        redirectAttributes.addFlashAttribute("error", "Debes iniciar sesión para modificar el carrito.");
+    public String eliminarProducto(@RequestParam Integer productoId, HttpSession session,
+            RedirectAttributes redirectAttributes) {
+        Usuario cliente = (Usuario) session.getAttribute("usuario");
+        if (cliente == null) {
+            redirectAttributes.addFlashAttribute("error", "Debes iniciar sesión para modificar el carrito.");
+            return "redirect:/";
+        }
+
+        carritoService.eliminarProductoDelCarrito(cliente.getId(), productoId.intValue());
+        redirectAttributes.addFlashAttribute("success", "Producto eliminado del carrito.");
+        return "redirect:/"; // Redirige correctamente a la página principal
+    }
+
+    @GetMapping("/pago")
+    public String mostrarFormularioPago(HttpSession session, Model model) {
+        Usuario cliente = (Usuario) session.getAttribute("usuario");
+        if (cliente == null) {
+            return "redirect:/login";
+        }
+
+        Carrito carrito = carritoService.obtenerCarritoActivo(cliente.getId());
+        if (carrito == null || carrito.getContenido().isEmpty()) {
+            return "redirect:/";
+        }
+
+        model.addAttribute("carrito", carrito);
+        return "pago"; // Vista para ingresar método de pago y dirección
+    }
+
+    @PostMapping("/pagar")
+    public String realizarPago(@RequestParam String metodoPago, @RequestParam String direccion, HttpSession session,
+            RedirectAttributes redirectAttributes) {
+        Usuario cliente = (Usuario) session.getAttribute("usuario");
+        System.out.println("Usuario en sesión: " + cliente); // Verificar si el usuario está en sesión
+        if (cliente == null) {
+            redirectAttributes.addFlashAttribute("error", "Debes iniciar sesión para realizar el pago.");
+            return "redirect:/login";
+        }
+
+        try {
+            carritoService.realizarPago(cliente.getId());
+            redirectAttributes.addFlashAttribute("success", "Pago realizado con éxito.");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", "Hubo un problema al procesar el pago.");
+        }
+
         return "redirect:/";
     }
 
-    carritoService.eliminarProductoDelCarrito(cliente.getId(), productoId.intValue());
-    redirectAttributes.addFlashAttribute("success", "Producto eliminado del carrito.");
-    return "redirect:/carrito/carrito/ver"; // Redirige de nuevo a ver el carrito
+    @GetMapping("/pedidos/json")
+    @ResponseBody
+    public List<Pedido> obtenerPedidos(HttpSession session) {
+        Usuario cliente = (Usuario) session.getAttribute("usuario");
+        if (cliente == null) {
+            return null; // Si no hay usuario en sesión, devolver null
+        }
+
+        return pedidoRepository.findByPago_Carrito_ClienteId(cliente.getId());
     }
 }

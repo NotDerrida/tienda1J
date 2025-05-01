@@ -30,19 +30,16 @@ public class AuthController {
             @RequestParam String email,
             @RequestParam String password,
             HttpSession session,
-            RedirectAttributes redirectAttributes) { // Usamos RedirectAttributes
+            RedirectAttributes redirectAttributes) {
 
-        // Busca al usuario por email
         Usuario usuario = usuarioRepository.findByEmail(email).orElse(null);
 
-        // Verifica credenciales
         if (usuario == null || !usuarioService.verifyPassword(password, usuario.getPassword())) {
             redirectAttributes.addFlashAttribute("error", "Credenciales incorrectas.");
             return "redirect:/";
         }
 
-        // Guarda al usuario en sesión si las credenciales son válidas
-        session.setAttribute("usuario", usuario);
+        session.setAttribute("usuario", usuario); // Configurar el usuario en la sesión
         return "redirect:/";
     }
 

@@ -13,25 +13,29 @@ public class SecurityConfig {
         @Bean
         public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
                 http
-                        .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(
-                                "/",
-                                "/index",
-                                "/login",
-                                "/logout",
-                                "/register",
-                                "/quienesSomos",
-                                "/users",
-                                "/css/**",
-                                "/js/**",
-                                "/carrito/**")
-                        .permitAll()
-                                /*.requestMatchers("/carrito/**").authenticated()*/
-                                .anyRequest().authenticated())
-
-                        .formLogin(login -> login.disable()) 
-                        .logout(logout -> logout
-                        .logoutSuccessUrl("/"));
+                                .csrf(csrf -> csrf.disable()) // Deshabilitar CSRF para pruebas
+                                .authorizeHttpRequests(auth -> auth
+                                                .requestMatchers(
+                                                                "/",
+                                                                "/index",
+                                                                "/login",
+                                                                "/logout",
+                                                                "/register",
+                                                                "/quienesSomos",
+                                                                "/users",
+                                                                "/css/**",
+                                                                "/js/**",
+                                                                "/carrito/agregar",
+                                                                "/carrito/eliminar",
+                                                                "/carrito/pagar",
+                                                                "/carrito/pedidos/json" // Permitir acceso explícito a
+                                                                                        // esta
+                                                                                        // ruta
+                                                ).permitAll() // Permitir acceso público a estas rutas
+                                                .anyRequest().authenticated()) // Cualquier otra solicitud requiere
+                                                                               // autenticación
+                                .formLogin(login -> login.disable())
+                                .logout(logout -> logout.logoutSuccessUrl("/"));
                 return http.build();
         }
 }
