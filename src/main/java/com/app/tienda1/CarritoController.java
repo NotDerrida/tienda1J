@@ -36,7 +36,7 @@ public class CarritoController {
         }
 
         Carrito carrito = carritoService.obtenerCarritoActivo(cliente.getId());
-
+        model.addAttribute("carrito", carrito);
         // Imprimir el carrito en la consola para verificar su contenido
         System.out.println("Carrito cargado: " + carrito);
 
@@ -48,5 +48,18 @@ public class CarritoController {
 
         model.addAttribute("carrito", carrito);
         return "index"; // O la vista donde se muestra el carrito
+    }
+
+    @PostMapping("/eliminar")
+    public String eliminarProducto(@RequestParam Integer productoId, HttpSession session, RedirectAttributes redirectAttributes) {
+    Usuario cliente = (Usuario) session.getAttribute("usuario");
+    if (cliente == null) {
+        redirectAttributes.addFlashAttribute("error", "Debes iniciar sesión para modificar el carrito.");
+        return "redirect:/";
+    }
+
+    carritoService.eliminarProductoDelCarrito(cliente.getId(), productoId.intValue());
+    redirectAttributes.addFlashAttribute("success", "Producto eliminado del carrito.");
+    return "redirect:/carrito/carrito/ver"; // Redirige de nuevo a ver el carrito
     }
 }
