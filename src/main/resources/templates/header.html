@@ -22,10 +22,16 @@
         <!-- Botones centrales -->
         <div class="d-flex gap-3 ms-auto me-auto">
           <a class="btn btn-secondary" th:href="@{/}">Marketplace</a>
-          <a class="btn btn-info" th:href="@{/users}">Usuarios</a>
-          <a class="btn btn-warning" th:href="@{/quienesSomos}"
-            >Quiénes somos</a
-          >
+          <a class="btn btn-info" 
+            th:href="@{/users}" 
+            th:if="${session.usuario != null and session.usuario.tipoUsuario.id == 1}">
+              Usuarios
+          </a>
+          <a class="btn btn-warning" 
+            th:href="@{/quienesSomos}" 
+            th:if="${session.usuario == null or session.usuario.tipoUsuario.id != 2}">
+              Quiénes somos
+          </a>
         </div>
 
         <!-- Parte derecha: Usuario -->
@@ -39,11 +45,9 @@
           >
             <span
               th:if="${session.usuario != null}"
-              th:text="'Hola, ' + ${session.usuario.nombre}"
-            ></span>
+              th:text="'Hola, ' + ${session.usuario.nombre}"></span>
             <span th:unless="${session.usuario != null}"
-              >Hola, ¿Quién eres?</span
-            >
+              >Hola, ¿Quién eres?</span>
           </button>
           <div th:if="${session.usuario != null}">
             <button
