@@ -1,12 +1,15 @@
-package com.app.tienda1;
+package com.app.tienda1.Controllers;
 
 import org.springframework.stereotype.Controller;
+import com.app.tienda1.Repositories.UsuarioRepository;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestParam;
+import com.app.tienda1.Services.UsuarioService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import com.app.tienda1.Models.Usuario; // Ensure this is the correct package for the Usuario class
 
 import java.util.Date;
 

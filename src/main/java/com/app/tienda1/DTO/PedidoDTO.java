@@ -1,4 +1,4 @@
-package com.app.tienda1;
+package com.app.tienda1.DTO;
 
 import java.util.List;
 

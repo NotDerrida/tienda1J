@@ -1,8 +1,17 @@
-package com.app.tienda1;
+package com.app.tienda1.Controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+
+import com.app.tienda1.Models.Carrito;
+import com.app.tienda1.Models.Producto;
+import com.app.tienda1.Models.Usuario;
+import com.app.tienda1.Repositories.UsuarioRepository;
+import com.app.tienda1.Services.CarritoService;
+import com.app.tienda1.Services.ProductoService;
+import com.app.tienda1.Services.UsuarioService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import jakarta.servlet.http.HttpSession;
 

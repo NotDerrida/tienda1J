@@ -1,4 +1,4 @@
-package com.app.tienda1;
+package com.app.tienda1.Models;
 
 import jakarta.persistence.*;
 import java.util.List;
@@ -18,12 +18,27 @@ public class TipoUsuario {
     private List<Usuario> usuarios;
 
     // Getters y setters
-    public Integer getId() { return id; }
-    public void setId(Integer id) { this.id = id; }
+    public Integer getId() {
+        return id;
+    }
 
-    public String getTipo() { return tipo; }
-    public void setTipo(String tipo) { this.tipo = tipo; }
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-    public List<Usuario> getUsuarios() { return usuarios; }
-    public void setUsuarios(List<Usuario> usuarios) { this.usuarios = usuarios; }
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    public List<Usuario> getUsuarios() {
+        return usuarios;
+    }
+
+    public void setUsuarios(List<Usuario> usuarios) {
+        this.usuarios = usuarios;
+    }
 }

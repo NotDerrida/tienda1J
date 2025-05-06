@@ -1,18 +1,27 @@
-package com.app.tienda1;
+package com.app.tienda1.Services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import jakarta.transaction.Transactional;
+import com.app.tienda1.Repositories.CarritoRepository;
+import com.app.tienda1.Repositories.ContenidoCarritoRepository;
+import com.app.tienda1.Repositories.ProductoRepository;
+import com.app.tienda1.Models.Pedido;
+import com.app.tienda1.Repositories.PagoRepository;
+import com.app.tienda1.Repositories.PedidoRepository;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.UUID;
 import java.time.LocalDate;
 
-import com.app.tienda1.ContenidoCarrito;
-import com.app.tienda1.Carrito;
-import com.app.tienda1.Producto;
+import com.app.tienda1.Models.ContenidoCarrito;
+import com.app.tienda1.Models.Carrito;
+import com.app.tienda1.Models.Carrito;
+import com.app.tienda1.Models.Producto;
+import com.app.tienda1.Models.Usuario;
+import com.app.tienda1.Models.Pago;
 
 @Service
 public class CarritoService {

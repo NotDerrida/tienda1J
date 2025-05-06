@@ -1,4 +1,6 @@
-package com.app.tienda1;
+package com.app.tienda1.Repositories;
+
+import com.app.tienda1.Models.Carrito;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;

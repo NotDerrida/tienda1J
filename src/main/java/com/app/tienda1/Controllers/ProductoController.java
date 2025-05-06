@@ -1,8 +1,12 @@
-package com.app.tienda1;
+package com.app.tienda1.Controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+
+import com.app.tienda1.Models.Producto;
+import com.app.tienda1.Services.ProductoService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Map;

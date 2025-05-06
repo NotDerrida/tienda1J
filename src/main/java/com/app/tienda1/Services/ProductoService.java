@@ -1,6 +1,8 @@
-package com.app.tienda1;
+package com.app.tienda1.Services;
 
 import org.springframework.stereotype.Service;
+import com.app.tienda1.Repositories.ProductoRepository;
+import com.app.tienda1.Models.Producto; // Ensure this path matches the actual location of Producto class
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;

@@ -1,4 +1,4 @@
-package com.app.tienda1;
+package com.app.tienda1.Models;
 
 import jakarta.persistence.*;
 import java.time.LocalDate;

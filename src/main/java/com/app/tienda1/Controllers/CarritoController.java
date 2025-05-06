@@ -1,4 +1,4 @@
-package com.app.tienda1;
+package com.app.tienda1.Controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -7,6 +7,13 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.ui.Model;
 import java.util.List;
+import com.app.tienda1.Models.Usuario; // Import the Usuario class
+import com.app.tienda1.DTO.PedidoDTO;
+import com.app.tienda1.Models.Carrito; // Ensure the Carrito class is correctly imported
+import com.app.tienda1.Models.Pedido;
+import com.app.tienda1.Services.CarritoService;
+import com.app.tienda1.Repositories.PagoRepository;
+import com.app.tienda1.Repositories.PedidoRepository;
 
 @Controller
 @RequestMapping("/carrito")

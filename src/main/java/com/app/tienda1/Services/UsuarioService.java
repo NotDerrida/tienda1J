@@ -1,8 +1,12 @@
-package com.app.tienda1;
+package com.app.tienda1.Services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import com.app.tienda1.Repositories.UsuarioRepository;
+import com.app.tienda1.Models.Usuario;
+import com.app.tienda1.Models.TipoUsuario;
 import org.springframework.stereotype.Service;
+import com.app.tienda1.Repositories.TipoUsuarioRepository;
 
 import java.util.Date;
 
@@ -14,7 +18,6 @@ public class UsuarioService {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
-
 
     public String hashPassword(String rawPassword) {
         return passwordEncoder.encode(rawPassword);
@@ -31,8 +34,6 @@ public class UsuarioService {
         // Asignar la fecha de registro
         usuario.setFechaRegistro(new Date());
 
-
-
         // Asignar el tipo de usuario por defecto (id = 3)
         TipoUsuario tipoPorDefecto = tipoUsuarioRepository.findById(3)
                 .orElseThrow(() -> new RuntimeException("No se encontró el tipo de usuario con ID 3"));
@@ -41,6 +42,6 @@ public class UsuarioService {
         // Hashear la contraseña
         usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
 
-        return usuarioRepository.save(usuario); 
+        return usuarioRepository.save(usuario);
     }
 }
