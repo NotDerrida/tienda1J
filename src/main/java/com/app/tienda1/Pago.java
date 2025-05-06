@@ -3,6 +3,8 @@ package com.app.tienda1;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(name = "Pago")
 public class Pago {
@@ -15,6 +17,10 @@ public class Pago {
     @OneToOne
     @JoinColumn(name = "id_carrito", nullable = false)
     private Carrito carrito;
+
+    @OneToOne(mappedBy = "pago")
+    @JsonBackReference
+    private Pedido pedido;
 
     @Column(name = "num_referencia", nullable = false, unique = true)
     private String numReferencia;

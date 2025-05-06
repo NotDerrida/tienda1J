@@ -20,6 +20,10 @@ public class Producto {
     private String imagen;
     private Boolean activo;
 
+    @ManyToOne
+    @JoinColumn(name = "id_carrito") // Relación con Carrito
+    private Carrito carrito;
+
     // Getters y setters
     public Integer getId() {
         return id;
@@ -75,5 +79,13 @@ public class Producto {
 
     public void setActivo(Boolean activo) {
         this.activo = activo;
+    }
+
+    public Carrito getCarrito() {
+        return carrito;
+    }
+
+    public void setCarrito(Carrito carrito) {
+        this.carrito = carrito;
     }
 }

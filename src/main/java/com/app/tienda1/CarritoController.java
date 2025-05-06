@@ -109,12 +109,35 @@ public class CarritoController {
 
     @GetMapping("/pedidos/json")
     @ResponseBody
-    public List<Pedido> obtenerPedidos(HttpSession session) {
+    public List<PedidoDTO> obtenerPedidos(HttpSession session) {
         Usuario cliente = (Usuario) session.getAttribute("usuario");
         if (cliente == null) {
-            return null; // Si no hay usuario en sesión, devolver null
+            throw new RuntimeException("Usuario no autenticado");
         }
 
-        return pedidoRepository.findByPago_Carrito_ClienteId(cliente.getId());
+        List<Pedido> pedidos = pedidoRepository.findByPago_Carrito_ClienteId(cliente.getId());
+        if (pedidos.isEmpty()) {
+            throw new RuntimeException("No se encontraron pedidos para este usuario");
+        }
+
+        // Convertir la lista de pedidos a una lista de PedidoDTO
+        List<PedidoDTO> pedidosDTO = pedidos.stream()
+                .map(pedido -> {
+                    // Obtener los nombres de los productos comprados en este pedido
+                    List<String> productos = pedido.getPago().getCarrito().getContenido().stream()
+                            .map(contenido -> contenido.getProducto().getNombre() + " (Cantidad: "
+                                    + contenido.getCantidad() + ")")
+                            .toList();
+
+                    return new PedidoDTO(
+                            pedido.getTicket(),
+                            pedido.getPago().getTotalPago(),
+                            pedido.getFechaEntrega().toString(),
+                            pedido.getEstado(),
+                            productos);
+                })
+                .toList();
+
+        return pedidosDTO;
     }
 }

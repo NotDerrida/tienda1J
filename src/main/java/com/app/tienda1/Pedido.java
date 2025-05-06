@@ -3,6 +3,8 @@ package com.app.tienda1;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name = "Pedido")
 public class Pedido {
@@ -13,6 +15,7 @@ public class Pedido {
 
     @OneToOne
     @JoinColumn(name = "id_pago", nullable = false)
+    @JsonManagedReference
     private Pago pago;
 
     @Column(name = "fecha_entrega", nullable = false)

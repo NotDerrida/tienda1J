@@ -223,16 +223,14 @@
               return response.json();
             })
             .then((pedidos) => {
-              // Limpiar el contenedor
               pedidosContainer.innerHTML = "";
 
-              if (pedidos.length === 0) {
+              if (!pedidos || pedidos.length === 0) {
                 pedidosContainer.innerHTML =
                   "<p>No tienes pedidos realizados.</p>";
                 return;
               }
 
-              // Crear una lista de pedidos
               const pedidosList = document.createElement("ul");
               pedidosList.classList.add("list-group");
 
@@ -240,13 +238,22 @@
                 const listItem = document.createElement("li");
                 listItem.classList.add("list-group-item");
 
+                // Crear una lista de productos
+                const productosList = pedido.productos
+                  .map((producto) => `<li>${producto}</li>`)
+                  .join("");
+
                 listItem.innerHTML = `
-                  <strong>Pedido #${index + 1}</strong><br>
-                  <span>Referencia: ${pedido.ticket}</span><br>
-                  <span>Total: $${pedido.pago.totalPago}</span><br>
-                  <span>Fecha de Entrega: ${pedido.fechaEntrega}</span><br>
-                  <span>Estado: ${pedido.estado}</span>
-                `;
+                              <strong>Pedido #${index + 1}</strong><br>
+                              <span>Referencia: ${pedido.ticket}</span><br>
+                              <span>Total: $${pedido.totalPago}</span><br>
+                              <span>Fecha de Entrega: ${
+                                pedido.fechaEntrega
+                              }</span><br>
+                              <span>Estado: ${pedido.estado}</span><br>
+                              <strong>Productos:</strong>
+                              <ul>${productosList}</ul>
+                          `;
 
                 pedidosList.appendChild(listItem);
               });
@@ -254,8 +261,7 @@
               pedidosContainer.appendChild(pedidosList);
             })
             .catch((error) => {
-              pedidosContainer.innerHTML =
-                "<p>Error al cargar los pedidos. Inténtalo de nuevo más tarde.</p>";
+              pedidosContainer.innerHTML = `<p>${error.message}</p>`;
               console.error(error);
             });
         });
