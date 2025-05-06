@@ -23,6 +23,8 @@ public class SecurityConfig {
                                                                 "/register",
                                                                 "/quienesSomos",
                                                                 "/users",
+                                                                "/productos",
+                                                                "/images/**",
                                                                 "/css/**",
                                                                 "/js/**",
                                                                 "/carrito/agregar",

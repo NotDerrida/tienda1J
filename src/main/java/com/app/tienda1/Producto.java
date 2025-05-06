@@ -15,7 +15,7 @@ public class Producto {
     private Double precio;
 
     @Column(name = "categoria_id")
-    private Integer categoriaId; // Puedes usar una relación FetchType.LAZY si prefieres
+    private Integer categoriaId;
 
     private String imagen;
     private Boolean activo;

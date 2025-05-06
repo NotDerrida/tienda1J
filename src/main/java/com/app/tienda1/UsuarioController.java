@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import jakarta.servlet.http.HttpSession;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class UsuarioController {
@@ -26,8 +27,8 @@ public class UsuarioController {
     @GetMapping("/")
     public String index(HttpSession session, Model model) {
         // Obtener la lista de productos activos
-        List<Producto> productos = productoService.obtenerProductosActivos();
-        model.addAttribute("productos", productos);
+        Map<String, List<Producto>> productosPorCategoria = productoService.obtenerProductosPorCategoria();
+        model.addAttribute("productosPorCategoria", productosPorCategoria);
 
         // Cargar el carrito activo del usuario si está autenticado
         Usuario cliente = (Usuario) session.getAttribute("usuario");
